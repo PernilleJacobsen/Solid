@@ -55,9 +55,11 @@ public interface WordPairControlInterface
      */
     boolean save(String filename);
 
-    /**
+    /**o
      * Pre: Post: The existing collection of word pairs is cleared
      */
     void clear();
+    
+    
 }
 

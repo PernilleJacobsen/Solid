@@ -6,6 +6,10 @@
 package solid;
 
 import Interfaces.WordPairControlInterface;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 
@@ -15,7 +19,8 @@ import Interfaces.WordPairControlInterface;
  */
 public class Controller implements WordPairControlInterface
 {
-
+    ArrayList<Ordpar> ordparArray;
+          
     @Override
     public void add(String question, String answer)
     {
@@ -49,7 +54,13 @@ public class Controller implements WordPairControlInterface
     @Override
     public boolean load(String filename)
     {
-       
+       ordparArray = FileHandler.load("Ordpar.txt");
+       if (ordparArray == null)
+       {
+           System.out.println("Intet indhold i arraylist");
+       return false;
+       }else    
+       return true;
     }
 
     @Override
@@ -62,6 +73,14 @@ public class Controller implements WordPairControlInterface
     public void clear()
     {
        
+    }
+    //Metode tl at gemme nye ordpar i Arrayliste
+    public void createNewWordpair(String question, String answer)
+    {
+        Ordpar ordpar = new Ordpar(question, answer);
+        ordparArray.add(ordpar);
+        System.out.println("Just before saving    "+ ordpar.toString() );
+        FileHandler.save(ordparArray, "Ordpar.txt");
     }
     
 }
