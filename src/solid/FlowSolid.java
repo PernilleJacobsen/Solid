@@ -50,9 +50,11 @@ public class FlowSolid extends javax.swing.JFrame
         jPanel2 = new javax.swing.JPanel();
         randomWord = new javax.swing.JLabel();
         newWord = new javax.swing.JButton();
-        check = new javax.swing.JButton();
+        LockUp = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         definition = new javax.swing.JTextArea();
+        check = new javax.swing.JButton();
+        clearCollection = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +97,7 @@ public class FlowSolid extends javax.swing.JFrame
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
-        clearButton.setText("Clear");
+        clearButton.setText("New WordPair");
         clearButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -163,8 +165,8 @@ public class FlowSolid extends javax.swing.JFrame
         jTabbedPane1.addTab("Enter Word", jPanel1);
 
         randomWord.setBackground(new java.awt.Color(255, 255, 255));
-        randomWord.setText("Word");
         randomWord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        randomWord.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         newWord.setText("New word");
         newWord.addActionListener(new java.awt.event.ActionListener()
@@ -175,6 +177,19 @@ public class FlowSolid extends javax.swing.JFrame
             }
         });
 
+        LockUp.setText("LockUp");
+        LockUp.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                LockUpActionPerformed(evt);
+            }
+        });
+
+        definition.setColumns(20);
+        definition.setRows(5);
+        jScrollPane2.setViewportView(definition);
+
         check.setText("Check");
         check.addActionListener(new java.awt.event.ActionListener()
         {
@@ -184,9 +199,14 @@ public class FlowSolid extends javax.swing.JFrame
             }
         });
 
-        definition.setColumns(20);
-        definition.setRows(5);
-        jScrollPane2.setViewportView(definition);
+        clearCollection.setText("Clear Collection");
+        clearCollection.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearCollectionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -202,20 +222,28 @@ public class FlowSolid extends javax.swing.JFrame
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(newWord, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(LockUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(clearCollection, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(randomWord, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(randomWord, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(check)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newWord)
-                    .addComponent(check))
+                    .addComponent(LockUp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clearCollection)
                 .addContainerGap())
         );
 
@@ -255,24 +283,39 @@ public class FlowSolid extends javax.swing.JFrame
         String question = danish.getText();
         String answer = english.getText();
         textArea.setText(question + "  :  " + answer);
-        controller.createNewWordpair(question, answer);
+        ordpar.add(question, answer);
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         danish.setText("");
         english.setText("");
         textArea.setText("");
-        //OBS dette bør indcoopereres i Controller - under metoden clear!
+        //OBS denne funktionalitet bør omdøbes - har ikke noget med clear() metoden i interfacet at gøre
         
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void newWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWordActionPerformed
-        // TODO add your handling code here:
+       //controller.getRandomQuestion();
+        String question = ordpar.getRandomQuestion();
+       jTextFieldrandomWord.setText(????????);
+       
+       
+        // her skal teksten sættes lig med den random vi danner via setText();
     }//GEN-LAST:event_newWordActionPerformed
 
-    private void checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkActionPerformed
+    private void LockUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LockUpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LockUpActionPerformed
+
+    private void checkActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkActionPerformed
+    {//GEN-HEADEREND:event_checkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkActionPerformed
+
+    private void clearCollectionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearCollectionActionPerformed
+    {//GEN-HEADEREND:event_clearCollectionActionPerformed
+        ordpar.clear();
+    }//GEN-LAST:event_clearCollectionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,8 +364,10 @@ public class FlowSolid extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LockUp;
     private javax.swing.JButton check;
     private javax.swing.JButton clearButton;
+    private javax.swing.JButton clearCollection;
     private javax.swing.JTextField danish;
     private javax.swing.JTextArea definition;
     private javax.swing.JTextField english;

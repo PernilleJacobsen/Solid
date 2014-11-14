@@ -31,8 +31,12 @@ public class FileHandler
         }
 
         while (file_scanner.hasNextLine()) {  //File found. Reading one line. 
-            String question = file_scanner.next();
-            String answer = file_scanner.next();
+            String linje = file_scanner.nextLine();
+            Scanner sc = new Scanner(linje).useDelimiter(",");
+            String question = sc.next();
+            System.out.println("Q"+question);
+            String answer = sc.next();
+            System.out.println("A"+answer);
             Ordpar o = new Ordpar(question, answer);
             System.out.println(o);
             ordparArray.add(o);  //Reading in a single line and saving in the ArrayList
@@ -53,13 +57,12 @@ public class FileHandler
         try 
         {
             output = new FileWriter(new File(Ordpar));  //Opening connection to file.
-            for (Ordpar ordparline : ordparArray) 
+            for (Ordpar ordparline : ordparArray)
             {   //running through the ArrayList.                    
                 output.write(ordparline.toString() + "\n");  //Each String object is written as a line in file.
             }
             output.close();  //Closing the file
         } 
-        
         catch (Exception ex) 
         {  //If something goes wrong everything is send to system out.
             System.out.println("Could not save to file!");

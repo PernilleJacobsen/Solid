@@ -9,6 +9,7 @@ import Interfaces.WordPairControlInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -19,23 +20,33 @@ import java.util.Scanner;
  */
 public class Controller implements WordPairControlInterface
 {
-    ArrayList<Ordpar> ordparArray;
+    ArrayList<Ordpar> ordparArray = new ArrayList<>();
           
     @Override
     public void add(String question, String answer)
     {
         
+        Ordpar ordpar = new Ordpar(question, answer);   
+        ordparArray.add(ordpar);
+        System.out.println("Just before saving    "+ ordpar.toString() );
+        FileHandler.save(ordparArray, "Ordpar.txt");
     }
 
     @Override
     public int size()
     {
+        return ordparArray.size();
         
     }
 
     @Override
     public String getRandomQuestion()
     {
+        load("Ordpar.txt");
+        Random random = new Random();
+        Ordpar question = ordparArray.get(random.nextInt(ordparArray.size()));
+        return question.getQuestion();
+        
         
     }
 
@@ -65,7 +76,9 @@ public class Controller implements WordPairControlInterface
 
     @Override
     public boolean save(String filename)
-    {
+    {   
+        //her mangler at kooden bliver korrekt
+        FileHandler.save(ordparArray, "Ordpar");
         
     }
 
@@ -73,14 +86,9 @@ public class Controller implements WordPairControlInterface
     public void clear()
     {
        
-    }
-    //Metode tl at gemme nye ordpar i Arrayliste
-    public void createNewWordpair(String question, String answer)
-    {
-        Ordpar ordpar = new Ordpar(question, answer);
-        ordparArray.add(ordpar);
-        System.out.println("Just before saving    "+ ordpar.toString() );
-        FileHandler.save(ordparArray, "Ordpar.txt");
+        //danish.setText("");
+        //english.setText("");
+        //textArea.setText("");
     }
     
 }
