@@ -1,2 +1,10 @@
+vif,vaf
+gif,gaf
+ko,cow
+ko,cow
 hund,dog
 ko,cow
+hund,dog
+bæver,beaver
+vuffelivov,doggelidog
+dør,door

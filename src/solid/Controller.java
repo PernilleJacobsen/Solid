@@ -5,6 +5,8 @@
  */
 package solid;
 
+import Model.Ordpar;
+import FileHandler.FileHandler;
 import Interfaces.WordPairControlInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,12 +22,13 @@ import java.util.Scanner;
  */
 public class Controller implements WordPairControlInterface
 {
-    ArrayList<Ordpar> ordparArray = new ArrayList<>();
+    private ArrayList<Ordpar> ordparArray = new ArrayList<>();
+    private Random random = new Random();
+    private Ordpar currentOrdpar;
           
     @Override
     public void add(String question, String answer)
     {
-        
         Ordpar ordpar = new Ordpar(question, answer);   
         ordparArray.add(ordpar);
         System.out.println("Just before saving    "+ ordpar.toString() );
@@ -43,24 +46,42 @@ public class Controller implements WordPairControlInterface
     public String getRandomQuestion()
     {
         load("Ordpar.txt");
-        Random random = new Random();
-        Ordpar question = ordparArray.get(random.nextInt(ordparArray.size()));
-        return question.getQuestion();
         
+        currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
         
+        return currentOrdpar.getQuestion();
     }
 
     @Override
-    public boolean checkGuess(String question, String quess)
+    public boolean checkGuess(String question, String answer)
     {
-        
+        if (answer==null)  
+        {
+            System.out.println("Manglende indtastning af ord før check");
+        }
+        if(answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
+        {
+            return true;
+        }
+        else
+        {
+            System.out.println("Du har svaret forkert - prøv igen");
+            return false;
+        }
     }
+
 
     @Override
     public String lookup(String question)
     {
         
+        
+    //if (s.equals(value))
+    //{
+    //    }
+     //   return 
     }
+    
 
     @Override
     public boolean load(String filename)
@@ -77,18 +98,24 @@ public class Controller implements WordPairControlInterface
     @Override
     public boolean save(String filename)
     {   
-        //her mangler at kooden bliver korrekt
-        FileHandler.save(ordparArray, "Ordpar");
         
-    }
+        FileHandler.save(ordparArray, "Ordpar");
+        if (ordparArray ==null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        }
+        
+    
 
     @Override
     public void clear()
     {
-       
-        //danish.setText("");
-        //english.setText("");
-        //textArea.setText("");
+       ordparArray.clear();       
     }
     
 }

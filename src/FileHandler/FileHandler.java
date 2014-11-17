@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package solid;
+package FileHandler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Model.Ordpar;
 
 /**
  *
@@ -20,7 +21,7 @@ public class FileHandler
     public static ArrayList<Ordpar> load (String filename)
     {
     Scanner file_scanner = null;
-    ArrayList<Ordpar> ordparArray = new ArrayList<Ordpar>();
+    ArrayList<Ordpar> ordparArray = new ArrayList<>();
 
         try {
             file_scanner = new Scanner(new File(filename));  //Connection to the file using the Scanner object
@@ -56,12 +57,14 @@ public class FileHandler
 
         try 
         {
-            output = new FileWriter(new File(Ordpar));  //Opening connection to file.
+            FileWriter writer = new FileWriter("Ordpar.txt",true);
+            //output = new FileWriter(new File(Ordpar));  //Opening connection to file.
             for (Ordpar ordparline : ordparArray)
             {   //running through the ArrayList.                    
-                output.write(ordparline.toString() + "\n");  //Each String object is written as a line in file.
+                writer.append(ordparline.toString()+ ("\r\n"));
+                //Each String object is written as a line in file.
             }
-            output.close();  //Closing the file
+            writer.close();  //Closing the file
         } 
         catch (Exception ex) 
         {  //If something goes wrong everything is send to system out.
