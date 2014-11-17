@@ -25,6 +25,7 @@ public class Controller implements WordPairControlInterface
     private ArrayList<Ordpar> ordparArray = new ArrayList<>();
     private Random random = new Random();
     private Ordpar currentOrdpar;
+    private String question;
           
     @Override
     public void add(String question, String answer)
@@ -74,12 +75,21 @@ public class Controller implements WordPairControlInterface
     @Override
     public String lookup(String question)
     {
-        
-        
-    //if (s.equals(value))
-    //{
-    //    }
-     //   return 
+        for(Ordpar i :ordparArray)
+        {
+            if(question.equals(i.getQuestion()))  
+            {
+                return i.getAnswer();
+                
+            }else
+                if(question.equals(i.getAnswer()))
+                        {
+                    return i.getQuestion();
+            }
+        }
+        System.out.println("Det indtastede ord er ikke i ordbogen");
+        return null;
+    
     }
     
 

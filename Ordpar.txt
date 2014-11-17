@@ -8,3 +8,4 @@ hund,dog
 bæver,beaver
 vuffelivov,doggelidog
 dør,door
+ur,clock

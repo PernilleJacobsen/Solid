@@ -15,7 +15,7 @@ import solid.Controller;
 public class FlowSolid extends javax.swing.JFrame
 {
 
-    WordPairControlInterface ordpar;
+    WordPairControlInterface wordparinterface;
     Controller controller = new Controller();
 
     /**
@@ -23,7 +23,7 @@ public class FlowSolid extends javax.swing.JFrame
      */
     public FlowSolid()
     {
-        ordpar = new Controller();
+        wordparinterface = new Controller();
         initComponents();
     }
 
@@ -49,7 +49,6 @@ public class FlowSolid extends javax.swing.JFrame
         textArea = new javax.swing.JTextArea();
         clearButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        randomWord = new javax.swing.JLabel();
         newWord = new javax.swing.JButton();
         LockUp = new javax.swing.JButton();
         check = new javax.swing.JButton();
@@ -57,6 +56,7 @@ public class FlowSolid extends javax.swing.JFrame
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,10 +166,6 @@ public class FlowSolid extends javax.swing.JFrame
 
         jTabbedPane1.addTab("Enter Word", jPanel1);
 
-        randomWord.setBackground(new java.awt.Color(255, 255, 255));
-        randomWord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        randomWord.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         newWord.setText("New word");
         newWord.addActionListener(new java.awt.event.ActionListener()
         {
@@ -210,7 +206,6 @@ public class FlowSolid extends javax.swing.JFrame
 
         jLabel7.setText("Enter english word in next box");
 
-        jTextField1.setText("Answer");
         jTextField1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -235,9 +230,9 @@ public class FlowSolid extends javax.swing.JFrame
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(randomWord, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(jTextField2))))
                 .addGap(12, 12, 12))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,13 +241,11 @@ public class FlowSolid extends javax.swing.JFrame
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(randomWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -303,45 +296,51 @@ public class FlowSolid extends javax.swing.JFrame
         String question = danish.getText();
         String answer = english.getText();
         textArea.setText(question + "  :  " + answer);
-        ordpar.add(question, answer);
+        wordparinterface.add(question, answer);
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         danish.setText("");
         english.setText("");
         textArea.setText("");
-        //OBS denne funktionalitet bør omdøbes - har ikke noget med clear() metoden i interfacet at gøre
-        
+
+
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void newWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWordActionPerformed
-       //controller.getRandomQuestion();
-        String question = ordpar.getRandomQuestion();
-       randomWord.setText(question);
-       
-       
-        // her skal teksten sættes lig med den random vi danner via setText();
+
+        String question = wordparinterface.getRandomQuestion();
+        jTextField2.setText(question);
     }//GEN-LAST:event_newWordActionPerformed
 
     private void LockUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LockUpActionPerformed
-        // TODO add your handling code here:
+        if (!jTextField2.getText().equals(""))
+        {
+            System.out.println("udskrift før kald af lockup tekstfelt2 ikke tom"+jTextField2.getText());
+            jTextField1.setText(wordparinterface.lookup(jTextField2.getText()));
+            
+        } else if (!jTextField1.getText().equals(""))
+        {   System.out.println("udskrift før kald af lockup tekstfelt1 ikke tom"+jTextField1.getText());
+            jTextField2.setText(wordparinterface.lookup(jTextField1.getText()));
+        }
     }//GEN-LAST:event_LockUpActionPerformed
 
     private void checkActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkActionPerformed
     {//GEN-HEADEREND:event_checkActionPerformed
         String answer = jTextField1.getText();
-        if (ordpar.checkGuess(answer, answer)==true)
-            jTextField1.setText(answer +" er korrekt");
-        else
+        if (wordparinterface.checkGuess(answer, answer) == true)
         {
-            jTextField1.setText(answer +" er forkert");
+            jTextField1.setText(answer + " er korrekt");
+        } else
+        {
+            jTextField1.setText(answer + " er forkert");
         }
-        
+
     }//GEN-LAST:event_checkActionPerformed
 
     private void clearCollectionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearCollectionActionPerformed
     {//GEN-HEADEREND:event_clearCollectionActionPerformed
-        ordpar.clear();
+        wordparinterface.clear();
     }//GEN-LAST:event_clearCollectionActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField1ActionPerformed
@@ -412,8 +411,8 @@ public class FlowSolid extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton newWord;
-    private javax.swing.JLabel randomWord;
     private javax.swing.JButton saveButton;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables

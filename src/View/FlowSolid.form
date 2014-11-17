@@ -225,9 +225,9 @@
                                   <Component id="jLabel6" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="randomWord" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jTextField1" pref="168" max="32767" attributes="0"/>
+                                  <Component id="jTextField2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -242,15 +242,12 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="randomWord" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
-                              <Component id="jLabel6" min="-2" pref="46" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel6" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="jTextField2" pref="51" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jTextField1" pref="55" max="32767" attributes="0"/>
                           <Component id="jLabel7" max="32767" attributes="0"/>
@@ -270,19 +267,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="randomWord">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder/>
-                  </Border>
-                </Property>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="newWord">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New word"/>
@@ -326,12 +310,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Answer"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField2">
             </Component>
           </SubComponents>
         </Container>
