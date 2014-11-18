@@ -56,19 +56,21 @@ public class Controller implements WordPairControlInterface
     @Override
     public boolean checkGuess(String question, String answer)
     {
-        if (answer==null)  
+        if (answer.equals(("")))  
         {
-            System.out.println("Manglende indtastning af ord før check");
+            System.out.println("Manglende indtastning af ord før tyk på check");
+            
         }
         if(answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
         {
             return true;
         }
-        else
+        if(!answer.equals((""))&&!answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
         {
             System.out.println("Du har svaret forkert - prøv igen");
             return false;
         }
+        return false;
     }
 
 

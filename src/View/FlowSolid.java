@@ -316,13 +316,26 @@ public class FlowSolid extends javax.swing.JFrame
     private void LockUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LockUpActionPerformed
         if (!jTextField2.getText().equals(""))
         {
-            System.out.println("udskrift før kald af lockup tekstfelt2 ikke tom"+jTextField2.getText());
+            //System.out.println("udskrift før kald af lookup tekstfelt2 ikke tom"+jTextField2.getText());
             jTextField1.setText(wordparinterface.lookup(jTextField2.getText()));
-            
-        } else if (!jTextField1.getText().equals(""))
-        {   System.out.println("udskrift før kald af lockup tekstfelt1 ikke tom"+jTextField1.getText());
+            if(wordparinterface.lookup(jTextField2.getText())==null)
+                    {
+                        jTextField2.setText("Ord findes ikke i ordbogen");
+                    }
+        }if (!jTextField1.getText().equals(""))
+        {  
+            //System.out.println("udskrift før kald af lookup tekstfelt1 ikke tom"+jTextField1.getText());
             jTextField2.setText(wordparinterface.lookup(jTextField1.getText()));
+            
+            if(wordparinterface.lookup(jTextField1.getText())==null)
+                    {
+                        jTextField1.setText("Ord findes ikke i ordbogen");
+                    }
         }
+        
+        
+        
+        //OBS mangler kode her til at vise på Guien at det valgte ord ikke findes i arraylisten
     }//GEN-LAST:event_LockUpActionPerformed
 
     private void checkActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkActionPerformed
@@ -331,7 +344,8 @@ public class FlowSolid extends javax.swing.JFrame
         if (wordparinterface.checkGuess(answer, answer) == true)
         {
             jTextField1.setText(answer + " er korrekt");
-        } else
+        } 
+        else
         {
             jTextField1.setText(answer + " er forkert");
         }

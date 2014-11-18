@@ -9,3 +9,9 @@ bæver,beaver
 vuffelivov,doggelidog
 dør,door
 ur,clock
+halløj,hello
+halløj,hello
+ko,cow
+halløj,hello
+ko,cow
+hest,borse
