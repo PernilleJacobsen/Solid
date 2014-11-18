@@ -5,7 +5,7 @@
  */
 package View;
 
-import Interfaces.WordPairControlInterface;
+import Interface.WordPairControlInterface;
 import solid.Controller;
 
 /**
@@ -25,6 +25,7 @@ public class FlowSolid extends javax.swing.JFrame
     {
         wordparinterface = new Controller();
         initComponents();
+        wordparinterface.load("Ordpar.txt");
     }
 
     /**
@@ -308,7 +309,8 @@ public class FlowSolid extends javax.swing.JFrame
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void newWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWordActionPerformed
-
+        jTextField2.setText("");
+        jTextField1.setText("");
         String question = wordparinterface.getRandomQuestion();
         jTextField2.setText(question);
     }//GEN-LAST:event_newWordActionPerformed
@@ -332,9 +334,6 @@ public class FlowSolid extends javax.swing.JFrame
                         jTextField1.setText("Ord findes ikke i ordbogen");
                     }
         }
-        
-        
-        
         //OBS mangler kode her til at vise på Guien at det valgte ord ikke findes i arraylisten
     }//GEN-LAST:event_LockUpActionPerformed
 
@@ -349,7 +348,6 @@ public class FlowSolid extends javax.swing.JFrame
         {
             jTextField1.setText(answer + " er forkert");
         }
-
     }//GEN-LAST:event_checkActionPerformed
 
     private void clearCollectionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearCollectionActionPerformed
