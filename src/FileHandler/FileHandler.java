@@ -35,9 +35,9 @@ public class FileHandler
             String linje = file_scanner.nextLine();
             Scanner sc = new Scanner(linje).useDelimiter(",");
             String question = sc.next();
-            System.out.println("Q"+question);
+           // System.out.println("Q"+question);
             String answer = sc.next();
-            System.out.println("A"+answer);
+            //System.out.println("A"+answer);
             Ordpar o = new Ordpar(question, answer);
             System.out.println(o);
             ordparArray.add(o);  //Reading in a single line and saving in the ArrayList
@@ -47,7 +47,7 @@ public class FileHandler
         return ordparArray;    //returning the arraylist
     } 
     
-     public static boolean save(ArrayList<Ordpar> ordparArray, String Ordpar) 
+     public static boolean save(ArrayList<Ordpar> ordparArray, String filename) 
     {
         if (ordparArray == null)
         {
@@ -57,7 +57,7 @@ public class FileHandler
 
         try 
         {
-            FileWriter writer = new FileWriter("Ordpar.txt",true);
+            FileWriter writer = new FileWriter(filename,true);
             //output = new FileWriter(new File(Ordpar));  //Opening connection to file.
             for (Ordpar ordparline : ordparArray)
             {   //running through the ArrayList.                    
