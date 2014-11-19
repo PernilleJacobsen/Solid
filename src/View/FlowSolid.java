@@ -26,6 +26,7 @@ public class FlowSolid extends javax.swing.JFrame
         wordparinterface = new Controller();
         initComponents();
         wordparinterface.load("Ordpar.txt");
+        
     }
 
     /**

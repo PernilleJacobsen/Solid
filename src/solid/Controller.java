@@ -28,6 +28,7 @@ public class Controller implements WordPairControlInterface
     private Ordpar currentOrdpar;
     private String question;
     private String filename;
+    private int tilfældigtTal;
 
     @Override
     public void add(String question, String answer)
@@ -50,44 +51,51 @@ public class Controller implements WordPairControlInterface
     {
         //currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
         //return currentOrdpar.getQuestion();
-       int tilfældigtTal =random.nextInt(100);
-        System.out.println(tilfældigtTal);
-       
-        if (tilfældigtTal>0&&tilfældigtTal<=65)
+        createTilfældigtTal();
+        System.out.println("tilfældigt tal er " + tilfældigtTal);
+
+        if (tilfældigtTal > 0 && tilfældigtTal <= 65)
         {
-           currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
-           return currentOrdpar.getQuestion();
+            currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
+            return currentOrdpar.getQuestion();
         }
-        if (tilfældigtTal>65 && tilfældigtTal<=85)
+        if (tilfældigtTal > 65 && tilfældigtTal <= 85)
         {
             currentOrdpar = ordparArray2.get(random.nextInt(ordparArray2.size()));
             return currentOrdpar.getQuestion();
         }
-        if(tilfældigtTal>=86)
+        if (tilfældigtTal >= 86)
         {
-           currentOrdpar = ordparArray3.get(random.nextInt(ordparArray3.size()));
-           return currentOrdpar.getQuestion();   
+            currentOrdpar = ordparArray3.get(random.nextInt(ordparArray3.size()));
+            return currentOrdpar.getQuestion();
         }
         return "ikke fundet arrayliste";
-        
     }
 
     @Override
     public boolean checkGuess(String question, String answer)
     {
-        for (Ordpar op: ordparArray) {
-            if (op.getQuestion().equalsIgnoreCase(question)) {
+        ArrayList<Ordpar> temp = new ArrayList<>(ordparArray);
+        temp.addAll(ordparArray2);
+        temp.addAll(ordparArray3);
+
+        for (Ordpar op : temp)
+        {
+            if (op.getQuestion().equalsIgnoreCase(question))
+            {
                 currentOrdpar = op;
                 break;
             }
         }
-        if (answer.equals(("")))  //først if virker ikke p.t. - bliver ikke vist korrekt på guien.
-        {
-            System.out.println("Manglende indtastning af ord før tyk på check");
-            return false;
-        }
+//        if (answer.equals(("")))  //først if virker ikke p.t. - bliver ikke vist korrekt på guien.
+//        {
+//            System.out.println("Manglende indtastning af ord før tyk på check");
+//            return false;
+//        }
         if (answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
         {
+            moveWord(currentOrdpar);
+
             return true;
         }
         if (!answer.equals(("")) && !answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
@@ -96,6 +104,58 @@ public class Controller implements WordPairControlInterface
             return false;
         }
         return false;
+    }
+
+    private void createTilfældigtTal()
+    {
+        int a1 = ordparArray.size();
+        int a2 = ordparArray2.size();
+        int a3 = ordparArray3.size();
+        System.out.println("a1= " + a1 + " a2= " + a2 + " a3= " + a3);
+
+        if (a1 > 0 && a2 > 0 && a3 > 0)
+        {
+            tilfældigtTal = random.nextInt(100);
+        }
+        if (a1 > 0 && a2 > 0)
+        {
+            tilfældigtTal = random.nextInt(85);
+        }
+        if (a1 > 0 && a2 <= 0)
+        {
+            tilfældigtTal = random.nextInt(65);
+        }
+        if (a1 <= 0 && a2 > 0)
+        {
+            tilfældigtTal = random.nextInt(19) + 66;
+        }
+        if (a1 <= 0 && a2 <= 0)
+        {
+            tilfældigtTal = random.nextInt(143) + 86;
+        }
+//        else
+//        {
+//            tilfældigtTal=random.nextInt(65);
+//        }
+    }
+
+    private void moveWord(Ordpar currentOrdpar)
+    {
+        /*
+         1 ) hvis currtenordpar er i ordpararray så 
+         skal den flyttes 1 op
+         ditto
+         -Hvis 3 så ikke noget.
+         */
+        if (ordparArray.contains(currentOrdpar))
+        {
+            ordparArray2.add(currentOrdpar);
+            ordparArray.remove(currentOrdpar);
+        } else if (ordparArray2.contains(currentOrdpar))
+        {
+            ordparArray3.add(currentOrdpar);
+            ordparArray2.remove(currentOrdpar);
+        }
     }
 
     @Override
