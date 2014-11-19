@@ -7,14 +7,12 @@ package solid;
 
 import Model.Ordpar;
 import FileHandler.FileHandler;
-import Interfaces.WordPairControlInterface;
+import Interface.WordPairControlInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
-
 
 /**
  *
@@ -22,17 +20,21 @@ import java.util.Scanner;
  */
 public class Controller implements WordPairControlInterface
 {
+
     private ArrayList<Ordpar> ordparArray = new ArrayList<>();
+    private ArrayList<Ordpar> ordparArray2 = new ArrayList<>();
+    private ArrayList<Ordpar> ordparArray3 = new ArrayList<>();
     private Random random = new Random();
     private Ordpar currentOrdpar;
     private String question;
-          
+    private String filename;
+
     @Override
     public void add(String question, String answer)
     {
-        Ordpar ordpar = new Ordpar(question, answer);   
+        Ordpar ordpar = new Ordpar(question, answer);
         ordparArray.add(ordpar);
-        System.out.println("Just before saving    "+ ordpar.toString() );
+        System.out.println("Just before saving    " + ordpar.toString());
         FileHandler.save(ordparArray, "Ordpar.txt");
     }
 
@@ -40,32 +42,55 @@ public class Controller implements WordPairControlInterface
     public int size()
     {
         return ordparArray.size();
-        
+
     }
 
     @Override
     public String getRandomQuestion()
     {
-        load("Ordpar.txt");
+        //currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
+        //return currentOrdpar.getQuestion();
+       int tilfældigtTal =random.nextInt(100);
+        System.out.println(tilfældigtTal);
+       
+        if (tilfældigtTal>0&&tilfældigtTal<=65)
+        {
+           currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
+           return currentOrdpar.getQuestion();
+        }
+        if (tilfældigtTal>65 && tilfældigtTal<=85)
+        {
+            currentOrdpar = ordparArray2.get(random.nextInt(ordparArray2.size()));
+            return currentOrdpar.getQuestion();
+        }
+        if(tilfældigtTal>=86)
+        {
+           currentOrdpar = ordparArray3.get(random.nextInt(ordparArray3.size()));
+           return currentOrdpar.getQuestion();   
+        }
+        return "ikke fundet arrayliste";
         
-        currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
-        
-        return currentOrdpar.getQuestion();
     }
 
     @Override
     public boolean checkGuess(String question, String answer)
     {
-        if (answer.equals(("")))  
+        for (Ordpar op: ordparArray) {
+            if (op.getQuestion().equalsIgnoreCase(question)) {
+                currentOrdpar = op;
+                break;
+            }
+        }
+        if (answer.equals(("")))  //først if virker ikke p.t. - bliver ikke vist korrekt på guien.
         {
             System.out.println("Manglende indtastning af ord før tyk på check");
-            
+            return false;
         }
-        if(answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
+        if (answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
         {
             return true;
         }
-        if(!answer.equals((""))&&!answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
+        if (!answer.equals(("")) && !answer.equalsIgnoreCase(currentOrdpar.getAnswer()))
         {
             System.out.println("Du har svaret forkert - prøv igen");
             return false;
@@ -73,61 +98,57 @@ public class Controller implements WordPairControlInterface
         return false;
     }
 
-
     @Override
     public String lookup(String question)
     {
-        for(Ordpar i :ordparArray)
+        for (Ordpar i : ordparArray)
         {
-            if(question.equals(i.getQuestion()))  
+            if (question.equals(i.getQuestion()))
             {
                 return i.getAnswer();
-                
-            }else
-                if(question.equals(i.getAnswer()))
-                        {
-                    return i.getQuestion();
+
+            } else if (question.equals(i.getAnswer()))
+            {
+                return i.getQuestion();
             }
         }
         System.out.println("Det indtastede ord er ikke i ordbogen");
         return null;
-    
+
     }
-    
 
     @Override
     public boolean load(String filename)
     {
-       ordparArray = FileHandler.load("Ordpar.txt");
-       if (ordparArray == null)
-       {
-           System.out.println("Intet indhold i arraylist");
-       return false;
-       }else    
-       return true;
+        this.filename = filename;
+        ordparArray = FileHandler.load(this.filename);
+        if (ordparArray == null)
+        {
+            System.out.println("Intet indhold i arraylist");
+            return false;
+        } else
+        {
+            return true;
+        }
     }
 
     @Override
     public boolean save(String filename)
-    {   
-        
-        FileHandler.save(ordparArray, "Ordpar");
-        if (ordparArray ==null)
+    {
+
+        FileHandler.save(ordparArray, filename);
+        if (ordparArray == null)
         {
             return false;
-        }
-        else
+        } else
         {
             return true;
         }
-        }
-        
-    
+    }
 
     @Override
     public void clear()
     {
-       ordparArray.clear();       
+        ordparArray.clear();
     }
-    
 }
