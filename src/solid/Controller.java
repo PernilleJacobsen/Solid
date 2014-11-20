@@ -49,8 +49,8 @@ public class Controller implements WordPairControlInterface
     @Override
     public String getRandomQuestion()
     {
-        //currentOrdpar = ordparArray.get(random.nextInt(ordparArray.size()));
-        //return currentOrdpar.getQuestion();
+        //metoden finder random question via tilfældigt tal mellem 1 og 100 
+        //afhængig af hvilke arrays der er data i.
         createTilfældigtTal();
         System.out.println("tilfældigt tal er " + tilfældigtTal);
 
@@ -75,6 +75,8 @@ public class Controller implements WordPairControlInterface
     @Override
     public boolean checkGuess(String question, String answer)
     {
+        //metoden tjekker om det indtastede er lig med det der ligger 
+        //i arraylisten - her er de tre arraylister sasmlet til en temporær
         ArrayList<Ordpar> temp = new ArrayList<>(ordparArray);
         temp.addAll(ordparArray2);
         temp.addAll(ordparArray3);
@@ -105,9 +107,10 @@ public class Controller implements WordPairControlInterface
         }
         return false;
     }
-
+    // Metoden danner et tilfældigt tal afhængig af hvilke arraylister der er data i.
     private void createTilfældigtTal()
     {
+       
         int a1 = ordparArray.size();
         int a2 = ordparArray2.size();
         int a3 = ordparArray3.size();
@@ -138,15 +141,12 @@ public class Controller implements WordPairControlInterface
 //            tilfældigtTal=random.nextInt(65);
 //        }
     }
+    //metoden flytter ordpar fra ordparArray til ordparArray2 første gang det gættes.
+    //hvis ord gættes der ligger i ordparArray2 flyttes dettte til ordparArray3.
 
     private void moveWord(Ordpar currentOrdpar)
     {
-        /*
-         1 ) hvis currtenordpar er i ordpararray så 
-         skal den flyttes 1 op
-         ditto
-         -Hvis 3 så ikke noget.
-         */
+       
         if (ordparArray.contains(currentOrdpar))
         {
             ordparArray2.add(currentOrdpar);
