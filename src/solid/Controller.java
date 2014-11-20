@@ -134,7 +134,7 @@ public class Controller implements WordPairControlInterface
         }
         if (a1 <= 0 && a2 <= 0)
         {
-            tilfældigtTal = random.nextInt(14) + 86;
+            tilfældigtTal = random.nextInt(13) + 86;
         }
 //        else
 //        {
